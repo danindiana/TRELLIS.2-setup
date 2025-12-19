@@ -35,30 +35,44 @@ def __getattr__(name):
     return globals()[name]
 
 
-def from_pretrained(path: str, **kwargs):
+def from_pretrained(path: str, default_repo_id: str = 'microsoft/TRELLIS.2-4B', **kwargs):
     """
     Load a model from a pretrained checkpoint.
 
     Args:
         path: The path to the checkpoint. Can be either local path or a Hugging Face model name.
               NOTE: config file and model file should take the name f'{path}.json' and f'{path}.safetensors' respectively.
+        default_repo_id: Default repo ID to use if path doesn't contain a repo name.
         **kwargs: Additional arguments for the model constructor.
     """
     import os
     import json
     from safetensors.torch import load_file
     is_local = os.path.exists(f"{path}.json") and os.path.exists(f"{path}.safetensors")
-
+    
     if is_local:
         config_file = f"{path}.json"
         model_file = f"{path}.safetensors"
     else:
         from huggingface_hub import hf_hub_download
         path_parts = path.split('/')
-        repo_id = f'{path_parts[0]}/{path_parts[1]}'
-        model_name = '/'.join(path_parts[2:])
-        config_file = hf_hub_download(repo_id, f"{model_name}.json")
-        model_file = hf_hub_download(repo_id, f"{model_name}.safetensors")
+        
+        # Determine repo_id
+        # Check if first part looks like an org name (contains letters, -, etc but not 'ckpts')
+        # and second part looks like a repo name (contains . or - or is TRELLIS variant)
+        if (len(path_parts) >= 3 and 
+            path_parts[0] not in ('ckpts',) and 
+            ('.' in path_parts[1] or '-' in path_parts[1] or 'TRELLIS' in path_parts[1])):
+            # Full path like "microsoft/TRELLIS.2-4B/ckpts/shape_dec" or "microsoft/TRELLIS-image-large/..."
+            repo_id = f'{path_parts[0]}/{path_parts[1]}'
+            model_name = '/'.join(path_parts[2:])
+        else:
+            # Partial path like "ckpts/shape_dec" - use default repo
+            repo_id = default_repo_id
+            model_name = path
+            
+        config_file = hf_hub_download(repo_id, f"{model_name}.json", local_files_only=False)
+        model_file = hf_hub_download(repo_id, f"{model_name}.safetensors", local_files_only=False)
 
     with open(config_file, 'r') as f:
         config = json.load(f)

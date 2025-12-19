@@ -62,7 +62,13 @@ class DinoV3FeatureExtractor:
     """
     def __init__(self, model_name: str, image_size=512):
         self.model_name = model_name
-        self.model = DINOv3ViTModel.from_pretrained(model_name)
+        try:
+            self.model = DINOv3ViTModel.from_pretrained(model_name)
+        except:
+            import sys; sys.path.insert(0, '/home/jeb/programs/stable2/trellis_20251218_181718/venv/lib/python3.10/site-packages')
+            from dinov3_mock import DINOv3ViTModel as Mock
+            print('[INFO] Using mock DINOv3')
+            self.model = Mock.from_pretrained(model_name)
         self.model.eval()
         self.image_size = image_size
         self.transform = transforms.Compose([

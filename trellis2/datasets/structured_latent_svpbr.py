@@ -15,10 +15,10 @@ class SLatPbrVisMixin:
     def __init__(
         self,
         *args,
-        pretrained_pbr_slat_dec: str = 'JeffreyXiang/TRELLIS.2-4B/ckpts/tex_dec_next_dc_f16c32_fp16',
+        pretrained_pbr_slat_dec: str = 'microsoft/TRELLIS.2-4B/ckpts/tex_dec_next_dc_f16c32_fp16',
         pbr_slat_dec_path: Optional[str] = None,
         pbr_slat_dec_ckpt: Optional[str] = None,
-        pretrained_shape_slat_dec: str = 'JeffreyXiang/TRELLIS.2-4B/ckpts/shape_dec_next_dc_f16c32_fp16',
+        pretrained_shape_slat_dec: str = 'microsoft/TRELLIS.2-4B/ckpts/shape_dec_next_dc_f16c32_fp16',
         shape_slat_dec_path: Optional[str] = None,
         shape_slat_dec_ckpt: Optional[str] = None,
         **kwargs
@@ -142,10 +142,10 @@ class SLatPbr(SLatPbrVisMixin, StandardDatasetBase):
         pbr_slat_normalization: Optional[dict] = None,
         shape_slat_normalization: Optional[dict] = None,
         attrs: list[str] = ['base_color', 'metallic', 'roughness', 'emissive', 'alpha'],
-        pretrained_pbr_slat_dec: str = 'JeffreyXiang/TRELLIS.2-4B/ckpts/tex_dec_next_dc_f16c32_fp16',
+        pretrained_pbr_slat_dec: str = 'microsoft/TRELLIS.2-4B/ckpts/tex_dec_next_dc_f16c32_fp16',
         pbr_slat_dec_path: Optional[str] = None,
         pbr_slat_dec_ckpt: Optional[str] = None,
-        pretrained_shape_slat_dec: str = 'JeffreyXiang/TRELLIS.2-4B/ckpts/shape_dec_next_dc_f16c32_fp16',
+        pretrained_shape_slat_dec: str = 'microsoft/TRELLIS.2-4B/ckpts/shape_dec_next_dc_f16c32_fp16',
         shape_slat_dec_path: Optional[str] = None,
         shape_slat_dec_ckpt: Optional[str] = None,
         **kwargs

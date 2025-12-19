@@ -72,7 +72,7 @@ class SLatShape(SLatShapeVisMixin, SLat):
         min_aesthetic_score: float = 5.0,
         max_tokens: int = 32768,
         normalization: Optional[dict] = None,
-        pretrained_slat_dec: str = 'JeffreyXiang/TRELLIS.2-4B/ckpts/shape_dec_next_dc_f16c32_fp16',
+        pretrained_slat_dec: str = 'microsoft/TRELLIS.2-4B/ckpts/shape_dec_next_dc_f16c32_fp16',
         slat_dec_path: Optional[str] = None,
         slat_dec_ckpt: Optional[str] = None,
     ):

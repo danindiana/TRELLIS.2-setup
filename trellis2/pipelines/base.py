@@ -41,7 +41,11 @@ class Pipeline:
             try:
                 _models[k] = models.from_pretrained(f"{path}/{v}")
             except Exception as e:
-                _models[k] = models.from_pretrained(v)
+                # If first attempt failed and path is a repo ID, use it as default_repo_id
+                if '/' in path and '@' not in path:
+                    _models[k] = models.from_pretrained(v, default_repo_id=path)
+                else:
+                    _models[k] = models.from_pretrained(v)
 
         new_pipeline = Pipeline(_models)
         new_pipeline._pretrained_args = args

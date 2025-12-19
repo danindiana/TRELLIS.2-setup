@@ -15,7 +15,7 @@ class SLatVisMixin:
     def __init__(
         self,
         *args,
-        pretrained_slat_dec: str = 'JeffreyXiang/TRELLIS-image-large/ckpts/slat_dec_gs_swin8_B_64l8gs32_fp16',
+        pretrained_slat_dec: str = 'microsoft/TRELLIS.2-4B/ckpts/slat_dec_gs_swin8_B_64l8gs32_fp16',
         slat_dec_path: Optional[str] = None,
         slat_dec_ckpt: Optional[str] = None,
         **kwargs
@@ -114,7 +114,7 @@ class SLat(SLatVisMixin, StandardDatasetBase):
         max_tokens: int = 32768,
         latent_key: str = 'shape_latent',
         normalization: Optional[dict] = None,
-        pretrained_slat_dec: str = 'JeffreyXiang/TRELLIS-image-large/ckpts/slat_dec_gs_swin8_B_64l8gs32_fp16',
+        pretrained_slat_dec: str = 'microsoft/TRELLIS.2-4B/ckpts/slat_dec_gs_swin8_B_64l8gs32_fp16',
         slat_dec_path: Optional[str] = None,
         slat_dec_ckpt: Optional[str] = None,
     ):
